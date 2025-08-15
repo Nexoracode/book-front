@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #cf9ced;
+  --color-primary-100: #9f3ed7;
+  --color-primary-300: #700caa;
+  --color-primary-400: #580c85;
+  --color-primary-600: #410963;
+  --color-primary-700: #370655;
+  --color-primary-800: #2c0345;
+  --color-primary-900: #1e022f;
+  --color-hgray-100: #ffffff;
+  --color-hgray-200: #fafafb;
+  --color-hgray-300: #e7e7ea;
+  --color-hgray-350: #bfbfbf;
+  --color-hgray-400: #7c7c7c;
+  --color-hgray-500: #686868;
+  --color-hgray-600: #59595a;
+}
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@font-face {
+  font-family: "body";
+  src: url("./assets/fonts/IRANSansWeb.woff");
+}
+
+html {
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  font-size: 16px;
+  font-family: "body";
+}
+.slick-prev, .slick-next{
+  top: 60% !important;
+}
+.slick-prev:before,
+.slick-next:before {
+  font-size: 44px !important;
+}
+
+.slick-dots li button:before {
+  font-size: 16px !important;
+}
+
+.description h2 {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #4d4545;
+}
+.description h3 {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #4d4545;
+}
+.ltr {
+  direction: ltr !important;
+  text-align: right;
+}
+
+[dir="rtl"] .slick-prev {
+  right: 10px !important;
+  left: auto;
+}
+
+[dir="rtl"] .slick-next {
+  right: auto;
+  left: -10px !important;
+}
+
+.pagination-btn {
+  @apply flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
+    text-gray-600 bg-white transition-all duration-300 ease-in-out 
+    hover:bg-gray-200 hover:text-black 
+    disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* دکمه‌های شماره صفحه */
+.pagination-number {
+  @apply flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
+    bg-white text-gray-600 transition-all duration-300 ease-in-out 
+    hover:bg-blue-500 hover:text-white;
+}
+
+/* دکمه فعال (صفحه فعلی) */
+.pagination-active {
+  @apply bg-blue-600 text-white border-blue-600 font-bold shadow-lg;
+}
+
+/* دکمه غیرفعال */
+.pagination-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
