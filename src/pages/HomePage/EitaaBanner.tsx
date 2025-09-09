@@ -28,7 +28,7 @@ export default function EitaaBanner() {
                 {/* action */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:justify-start justify-center">
                   <a
-                    href={"https://web.eitaa.com/#@rshop_ir"}
+                    href={"https://eitaa.com/Rshop_ir"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn bg-blue-500/25 btn-lg rounded-2xl gap-3 shadow-lg transition-transform duration-200 hover:scale-[1.02] active:scale-[0.99]"
@@ -43,7 +43,7 @@ export default function EitaaBanner() {
 
                   {/* لینک ثانویه (اختیاری) */}
                   <a
-                    href={"https://web.eitaa.com/#@rshop_ir"}
+                    href={"https://eitaa.com/Rshop_ir"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-ghost rounded-2xl"
