@@ -9,10 +9,10 @@ import AdminProductPage from "./components/Admin/AdminProductPage";
 
 const AdminLayout = lazy(() => import("./components/Admin/AdminLayout"));
 const UserLayout = lazy(() => import("./components/Assets/UserLayout"));
-//const DetailsPage = lazy(() => import("./pages/DetailsPage"));
+const DetailsPage = lazy(() => import("./pages/DetailsPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
-//const Checkout = lazy(() => import("./pages/Checkout"));
-//const VerifyPage = lazy(() => import("./pages/VerifyPage"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const VerifyPage = lazy(() => import("./pages/VerifyPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const OrderDetail = lazy(() => import("./pages/OrderDetail"));
@@ -76,9 +76,9 @@ function App() {
           <Route element={<UserLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<HomePage />} />
-            {/*       <Route path="/b/:slug" element={<DetailsPage />} />
+            <Route path="/b/:slug" element={<DetailsPage />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/verify" element={<VerifyPage />} /> */}
+            <Route path="/verify" element={<VerifyPage />} />
           </Route>
           <Route path="/admin-login" element={<AdminLogin />} />
         </Routes>
