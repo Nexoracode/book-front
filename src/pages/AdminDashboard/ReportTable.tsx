@@ -212,8 +212,11 @@ export default function ReportTable() {
                   {item.id}
                 </Link>
               ),
-              date: new Date(Date.parse(item.createdAt)).toLocaleString(
-                "fa-IR"
+              date: new Date(Date.parse(item.updatedAt)).toLocaleString(
+                "fa-IR",
+                {
+                  timeZone: "UTC",
+                }
               ),
               user: `${item.user.firstName} ${item.user.lastName}`,
               product: `${item.product.name}`,
