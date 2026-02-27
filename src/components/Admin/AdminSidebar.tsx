@@ -4,6 +4,7 @@ import { IconShoppingCart } from "../Icons/IconShoppingCart";
 import { useAdminLayout } from "./AdminLayoutProvider";
 import { BaselineCloseIcon } from "../Icons/BaselineCloseIcon";
 import { AdProductIcon } from "../Icons/AdProductIcon";
+import DiscountIcon from "../Icons/DiscountIcon";
 
 type Props = {};
 
@@ -84,5 +85,10 @@ const menus = [
     to: "/products",
     labal: "محصولات",
     Icon: AdProductIcon,
+  },
+  {
+    to: "/discounts",
+    labal: "کدهای تخفیف",
+    Icon: DiscountIcon,
   },
 ];

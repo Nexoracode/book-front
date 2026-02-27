@@ -1,5 +1,4 @@
-"use client";
-import React from "react";
+import React, { ComponentProps, useEffect } from "react";
 import {
   Controller,
   FieldValues,
@@ -7,8 +6,10 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
-import TextInput from "./TextInput";
 import IconAlertCircleOutline from "../../Icons/IconAlertCircleOutline";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 type Props = {
   name: string;
@@ -22,15 +23,8 @@ type Props = {
   defaultValue?: string;
   row?: boolean;
   wrapperClassName?: string;
-} & React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
-  React.DetailedHTMLProps<
-    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    HTMLTextAreaElement
-  >;
-function TextField(props: Props) {
+} & ComponentProps<typeof DatePicker>;
+function DateField(props: Props) {
   var {
     name,
     rules,
@@ -40,13 +34,14 @@ function TextField(props: Props) {
     className,
     wrapperClassName,
     row,
+    range,
     ...allProps
   } = props;
-  var { watch } = useFormContext();
+  var { setValue, watch } = useFormContext();
 
-  /*   useEffect(() => {
+  useEffect(() => {
     setValue(name, defaultValue);
-  }, [defaultValue]); */
+  }, [defaultValue]);
   return (
     <Controller
       name={name}
@@ -71,10 +66,7 @@ function TextField(props: Props) {
             }
           : null),
       }}
-      render={({
-        field: { ref, onChange, ...allField },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange }, fieldState: { error } }) => (
         <div
           className={twMerge(
             `mb-2 w-full gap-1 lg:mb-6 lg:min-w-[265px] lg:flex-row  lg:items-center lg:gap-3`,
@@ -87,16 +79,27 @@ function TextField(props: Props) {
             </label>
           ) : null}
           <div className={`relative`}>
-            <TextInput
-              error={error}
-              field={{
-                ...allField,
-                onChange: (e) =>
-                  props.type === "number"
-                    ? onChange(Number(e.target.value))
-                    : onChange(e.target.value),
+            <DatePicker
+              className="w-full"
+              inputClass="bg-hgray-200 w-full p-1.5 px-2 rounded-lg outline outline-2 outline-hgray-300  focus:outline-primary-50"
+              locale={persian_fa}
+              calendar={persian}
+              onChange={(date) => {
+                if (range) {
+                  const dateRange = date as [DateObject, DateObject];
+                  dateRange[0] &&
+                    dateRange[1] &&
+                    onChange(name, [
+                      dateRange[0].toDate().toISOString(),
+                      dateRange[1].toDate().toISOString(),
+                    ]);
+                } else {
+                  const dateObject = date as DateObject;
+                  onChange(name, dateObject.toDate().toISOString());
+                }
               }}
-              {...{ className, ...allProps }}
+              {...allProps}
+              range={range}
             />
             <p className="absolute -bottom-5 right-0-0 text-xs font-semibold text-rose-500">
               {error ? error.message : ""}
@@ -114,4 +117,4 @@ function TextField(props: Props) {
   );
 }
 
-export default React.memo(TextField);
+export default React.memo(DateField);

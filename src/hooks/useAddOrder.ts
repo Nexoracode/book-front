@@ -12,6 +12,7 @@ export type AddOrderVariables = {
   street: string;
   plaque: string;
   postalCode: string;
+  discountCode?: string;
 };
 export default function useAddOrder() {
   const { mutate, isSuccess, isPending, data } = useMutation({

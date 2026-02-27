@@ -19,6 +19,7 @@ const formatter = new Intl.DateTimeFormat("fa-IR", {
   hour: "2-digit", // نمایش ساعت
   minute: "2-digit", // نمایش دقیقه
   hour12: false, // فرمت 24 ساعته
+  timeZone: "UTC",
 });
 
 export default function VerifyPage() {
@@ -81,7 +82,7 @@ export default function VerifyPage() {
                 value={
                   toLocalString(
                     +data.data.order.totalAmount +
-                      data.data.order.product?.postage
+                      data.data.order.product?.postage,
                   ) + " تومان"
                 }
                 className=""

@@ -55,8 +55,8 @@ export default function Select({
         onClick={() => setOpen(!open)}
         type="button"
         className={clsx(
-          `relative flex min-h-10 min-w-[200px] items-center justify-between pl-12 bg-hgray-200 w-full p-1 px-2 rounded-lg outline-2 outline-hgray-300 focus:outline-primary-50`,
-          className
+          `relative flex min-h-9 min-w-[200px] items-center justify-between pl-12 bg-hgray-200 w-full p-1 px-2 rounded-lg outline-2 outline-hgray-300 focus:outline-primary-50`,
+          className,
         )}
       >
         {isLoading ? (

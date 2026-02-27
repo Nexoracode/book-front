@@ -29,7 +29,7 @@ export default function SelectField(props: Props) {
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <div className="pb-8">
           {label ? (
-            <label className="font-noraml text-sm mb-2 inline-block text-hgray-600 lg:min-w-[80px]">
+            <label className="font-noraml text-sm mb-1 inline-block text-hgray-600 lg:min-w-[80px]">
               {label}
             </label>
           ) : null}

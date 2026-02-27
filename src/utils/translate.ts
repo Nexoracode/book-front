@@ -7,3 +7,8 @@ export const orderStatus = {
   Canceled: "لغو شده",
   adminPayment: "مدیریت",
 };
+
+export const discountType = {
+  fixed: "مبلغ ثابت",
+  percentage: "درصدی",
+};

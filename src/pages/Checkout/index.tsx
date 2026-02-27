@@ -6,7 +6,6 @@ import ContainerLayout from "../../components/Assets/ContainerLayout";
 import SelectField from "../../components/Form/Select/SelectField";
 import { provinces } from "../../data/region";
 import Button from "../../components/Assets/Button";
-import { calcInvicePrice, toLocalString } from "../../utils/numbers";
 import { useCart } from "../../store/CartProvider";
 import useAddOrder, { AddOrderVariables } from "../../hooks/useAddOrder";
 import LoadingButton from "../../components/Assets/LoadingButton";
@@ -14,6 +13,9 @@ import { useEffect, useState } from "react";
 import useInvice from "../../hooks/useInvice";
 import { useNavigate } from "react-router-dom";
 import SelectCity from "./SelectCity";
+import DiscountSection from "./DiscountSection";
+import OrderSummerySection from "./OrderSummerySection";
+import FinalPriceSection from "./FinalPriceSection";
 
 export default function Checkout() {
   const form = useForm({});
@@ -25,14 +27,18 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   const handleSubmit = (values: any) => {
-    const { province, phone, city, city_name } = values;
+    const { province, phone, city, city_name, postalCode } = values;
     setSubmitData({
       ...values,
       productId: cart[0].product.id,
       quantity: cart[0].quantity,
-      phone: phone.replaceAll(" ", ""),
+      phone: phone.replaceAll(" ", "".length),
       province: provinces.find((i) => i.id === province)?.name,
       city: city ?? city_name,
+      postalCode:
+        typeof postalCode === "string" && postalCode.length === 0
+          ? null
+          : postalCode,
     });
   };
 
@@ -60,7 +66,7 @@ export default function Checkout() {
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit, () =>
-            window.scrollTo({ top: 0, behavior: "smooth" })
+            window.scrollTo({ top: 0, behavior: "smooth" }),
           )}
         >
           <div className="flex-col">
@@ -130,6 +136,7 @@ export default function Checkout() {
                     rows={5}
                     name="postalCode"
                     label="کد پستی(اختیاری)"
+                    maxLength={10}
                     rules={{
                       minLength: {
                         value: 10,
@@ -145,42 +152,11 @@ export default function Checkout() {
               </div>
             </Paper>
 
-            <Paper className="p-4 mt-7">
-              <div className="flex justify-between">
-                <p className="mb-4 text-hgray-400 font-semibold">جمع فاکتور</p>
-                <p className="text-lg font-semibold text-hgray-600">
-                  {toLocalString(calcInvicePrice(cart))}
-                  <span className="text-sm text-hgray-350 pr-2">تومان</span>
-                </p>
-              </div>
-              <div className="flex justify-between pt-3">
-                <p className="mb-4 text-hgray-400 font-semibold">هزینه حمل</p>
-                <p className="text-lg font-semibold text-hgray-600">
-                  {toLocalString(
-                    cart.reduce((c, i) => i.product.postage + c, 0)
-                  )}
-                  <span className="text-sm text-hgray-350 pr-2">تومان</span>
-                </p>
-              </div>
-            </Paper>
+            <DiscountSection />
 
-            <Paper className="p-4 mt-7">
-              <div className="flex items-center justify-end">
-                <p className="mb-4 text-hgray-400 ml-3 font-semibold">
-                  مبلغ قابل پرداخت:
-                </p>
-                <p className="text-xl font-semibold text-hgray-600">
-                  {toLocalString(
-                    calcInvicePrice(cart) +
-                      cart.reduce((c, i) => i.product.postage + c, 0)
-                  )}
+            <OrderSummerySection />
 
-                  <span className="text-sm text-hgray-350 inline-block pr-2">
-                    تومان
-                  </span>
-                </p>
-              </div>
-            </Paper>
+            <FinalPriceSection />
 
             <div className="flex justify-between mt-7">
               <Button color="gray" href="/">

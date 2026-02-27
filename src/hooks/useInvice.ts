@@ -12,11 +12,14 @@ export default function useInvice() {
     data: invoiceData,
   } = useMutation({
     mutationFn: ({ orderId }: AddInvoiceVariables) => {
-      const callback = `${window.location.protocol}//${window.location.host}/verify?orderId=${orderId}`;
-      return axiosInstance.post("/payment/pay", {
-        orderId,
-        callback,
-      }).then((data)=>data.data);
+      const callbackUrl = `${window.location.protocol}//${window.location.host}/verify?orderId=${orderId}`;
+      console.log({ callbackUrl });
+      return axiosInstance
+        .post("/payment/pay", {
+          orderId,
+          callbackUrl,
+        })
+        .then((data) => data.data);
     },
   });
 

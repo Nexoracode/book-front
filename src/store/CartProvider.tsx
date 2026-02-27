@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { CartItem, User } from "../types";
+import { CartItem, DiscountType, User } from "../types";
 
 export const CartContext = createContext<{
   handleAddToCart: (item: CartItem) => void;
@@ -14,6 +14,16 @@ export const CartContext = createContext<{
   setUser: (user: User) => void;
   cart: Array<CartItem>;
   setCart: (cart: Array<CartItem>) => void;
+  discount: {
+    value: number;
+    type: DiscountType;
+  } | null;
+  setDiscount: (
+    discount: {
+      value: number;
+      type: DiscountType;
+    } | null,
+  ) => void;
 }>({
   handleAddToCart: () => {},
   handleClearCart: () => {},
@@ -21,6 +31,8 @@ export const CartContext = createContext<{
   setCart: () => {},
   user: null,
   setUser: () => {},
+  discount: null,
+  setDiscount: () => {},
 });
 
 export const useCart = () => useContext(CartContext);
@@ -28,6 +40,10 @@ export const useCart = () => useContext(CartContext);
 export default function CartProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
   const [cart, setCart] = useState<Array<CartItem>>([]);
+  const [discount, setDiscount] = useState<{
+    type: DiscountType;
+    value: number;
+  } | null>(null);
 
   const handleAddToCart = (item: CartItem) => {
     const newCart = item.quantity === 0 ? [] : [item];
@@ -64,6 +80,8 @@ export default function CartProvider({ children }: PropsWithChildren) {
         setUser,
         cart,
         setCart,
+        discount,
+        setDiscount,
       }}
     >
       {children}

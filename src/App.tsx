@@ -6,6 +6,9 @@ import AdminProtected from "./components/Assets/AdminProtected";
 import AdminAddOrder from "./components/Admin/AdminAddOrder";
 import AdminProducts from "./components/Admin/AdminProducts";
 import AdminProductPage from "./components/Admin/AdminProductPage";
+import DiscountListsPage from "./components/Admin/Discount/DiscountListsPage";
+import DiscountItemPage from "./components/Admin/Discount/DiscountItemPage";
+import CreateDiscountPage from "./components/Admin/Discount/CreateDiscountPage";
 
 const AdminLayout = lazy(() => import("./components/Admin/AdminLayout"));
 const UserLayout = lazy(() => import("./components/Assets/UserLayout"));
@@ -68,6 +71,30 @@ function App() {
               element={
                 <AdminProtected>
                   <AdminProductPage />
+                </AdminProtected>
+              }
+            />
+            <Route
+              path="/admin-dashboard/discounts"
+              element={
+                <AdminProtected>
+                  <DiscountListsPage />
+                </AdminProtected>
+              }
+            />
+            <Route
+              path="/admin-dashboard/discounts/new"
+              element={
+                <AdminProtected>
+                  <CreateDiscountPage />
+                </AdminProtected>
+              }
+            />
+            <Route
+              path="/admin-dashboard/discounts/:id"
+              element={
+                <AdminProtected>
+                  <DiscountItemPage />
                 </AdminProtected>
               }
             />

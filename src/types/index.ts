@@ -105,3 +105,17 @@ export type Filter = {
   "filter.createdAt[1]"?: string;
   search?: string;
 };
+
+export type DiscountType = "fixed" | "percentage";
+export type Discount = {
+  id: number;
+  code: string;
+  type: DiscountType;
+  value: string;
+  maxUses: number;
+  usedCount: number;
+  expiresAt: string | null;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

@@ -10,7 +10,7 @@ type Props = {
   required?: boolean;
 };
 
-export var mobilePattern = /^09\d{2} \d{3} \d{4}$/g;
+export var mobilePattern = /^09\d{2}\d{3}\d{4}$/g;
 var MobileField = (props: Props) => {
   var { name, label, className, required = true } = props;
   var { control } = useFormContext();
@@ -41,9 +41,9 @@ var MobileField = (props: Props) => {
               className={clsx(
                 className,
                 "bg-hgray-200 p-1.5 px-2  text-hgray-400 ltr pl-7 rounded-lg !border-none !shadow-none outline-2 outline-hgray-300  focus:outline-primary-50",
-                error ? "!outline-red-500 " : ""
+                error ? "!outline-red-500 " : "",
               )}
-              format="#### ### ####"
+              format="###########"
               allowEmptyFormatting
               mask="_"
             />
