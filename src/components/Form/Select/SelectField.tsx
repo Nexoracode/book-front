@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Select, { SelectProps } from ".";
 import { Controller, useFormContext } from "react-hook-form";
 import IconAlertCircleOutline from "../../Icons/IconAlertCircleOutline";
@@ -10,11 +9,7 @@ type Props = {
 
 export default function SelectField(props: Props) {
   var { required, name, label, ...allProps } = props;
-  var { control, setValue } = useFormContext();
-
-  useEffect(() => {
-    setValue(name, allProps.defaultValue);
-  }, [allProps.defaultValue]);
+  var { control } = useFormContext();
 
   return (
     <Controller

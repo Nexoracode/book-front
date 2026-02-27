@@ -8,11 +8,23 @@ export default function CreateDiscountPage() {
   const navigate = useNavigate();
 
   const handleSubmit = (values: any) => {
-    mutateAsync(values, {
-      onSuccess() {
-        navigate("/admin-dashboard/discounts");
+    const { code, expiresAt, maxUses, type, value_percentage, value_fixed } =
+      values;
+    mutateAsync(
+      {
+        value:
+          type === "fixed" ? Number(value_fixed) : Number(value_percentage),
+        code,
+        expiresAt,
+        maxUses,
+        type,
       },
-    });
+      {
+        onSuccess() {
+          navigate("/admin-dashboard/discounts");
+        },
+      },
+    );
   };
   return (
     <div>

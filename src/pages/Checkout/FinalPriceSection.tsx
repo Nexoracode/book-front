@@ -15,7 +15,7 @@ export default function FinalPriceSection() {
     if (!discount) return 0;
 
     return discount.type === "fixed"
-      ? cartPrice - discount.value
+      ? discount.value
       : (cartPrice * discount.value) / 100;
   }, [discount, cartPrice]);
 

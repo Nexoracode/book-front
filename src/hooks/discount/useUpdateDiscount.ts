@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../utils/axios";
 import { toast } from "react-toastify";
+import { queryClient } from "../../utils/query-client";
 
 export type UpdateDiscountVariables = {
   code: string;
@@ -17,6 +18,7 @@ export default function useUpdateDiscount() {
     },
 
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["discount-list"] });
       toast.success("ویرایش کد تخفیف با موفقیت انجام شد.");
     },
   });

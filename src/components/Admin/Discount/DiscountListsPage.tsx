@@ -50,7 +50,7 @@ const headers = [
     key: "isActive",
   },
   {
-    label: "زمان انتقضا",
+    label: "زمان انقضا",
     key: "expiresAt",
   },
   {
@@ -110,8 +110,9 @@ export default function DiscountListsPage({}: Props) {
               type: <span>{discountType[item.type]}</span>,
               value:
                 item.type === "fixed"
-                  ? toLocalString(Number(item.value)) + "تومان"
-                  : item.value + "%",
+                  ? toLocalString(Number(Number(item.value).toFixed())) +
+                    "تومان"
+                  : Number(item.value).toFixed() + "%",
               maxUses: item.maxUses,
               usedCount: item.usedCount,
               isActive: item.isActive ? (

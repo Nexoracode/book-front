@@ -111,7 +111,7 @@ export type Discount = {
   id: number;
   code: string;
   type: DiscountType;
-  value: string;
+  value: number;
   maxUses: number;
   usedCount: number;
   expiresAt: string | null;

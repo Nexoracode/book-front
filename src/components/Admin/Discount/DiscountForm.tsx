@@ -20,11 +20,14 @@ export default function DiscountForm({
   mode,
 }: Props) {
   const form = useForm({
-    values: { ...values },
+    values: {
+      ...values,
+      value_percentage: Number(values?.value).toFixed(),
+      value_fixed: Number(values?.value).toFixed(),
+    },
   });
   const type = form.watch("type");
 
-  console.log({ type });
   return (
     <div>
       <FormProvider {...form}>
@@ -36,10 +39,11 @@ export default function DiscountForm({
             <div className="w-full lg:w-[calc(50%-8px)]">
               <SelectField
                 items={[
-                  { label: "مبلغ ثابت", value: "" },
+                  { label: "مبلغ ثابت", value: "fixed" },
                   { label: "درصدی", value: "percentage" },
                 ]}
                 name="type"
+                initOption={false}
                 required
                 label="نوع تخفیف"
                 defaultValue={"percentage"}
@@ -56,12 +60,12 @@ export default function DiscountForm({
                       message: "درصد کد تخفیف از 100 نمیتواند بیشتر باشد",
                     },
                   }}
-                  name="value"
+                  name="value_percentage"
                   required
                   label="درصد تخفیف"
                 />
               ) : (
-                <PriceField required name="value" label="مبلغ تخفیف" />
+                <PriceField required name="value_fixed" label="مبلغ تخفیف" />
               )}
             </div>
 
@@ -74,7 +78,7 @@ export default function DiscountForm({
               />
             </div>
             <div className="w-full lg:w-[calc(33%-8px)]">
-              <DateField name="expireAt" label="زمان انقضا" />
+              <DateField name="expiresAt" label="زمان انقضا" />
             </div>
 
             <div className="w-full lg:w-[calc(50%-8px)]">

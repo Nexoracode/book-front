@@ -66,7 +66,7 @@ function DateField(props: Props) {
             }
           : null),
       }}
-      render={({ field: { onChange }, fieldState: { error } }) => (
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <div
           className={twMerge(
             `mb-2 w-full gap-1 lg:mb-6 lg:min-w-[265px] lg:flex-row  lg:items-center lg:gap-3`,
@@ -84,18 +84,19 @@ function DateField(props: Props) {
               inputClass="bg-hgray-200 w-full p-1.5 px-2 rounded-lg outline outline-2 outline-hgray-300  focus:outline-primary-50"
               locale={persian_fa}
               calendar={persian}
+              value={value}
               onChange={(date) => {
                 if (range) {
                   const dateRange = date as [DateObject, DateObject];
                   dateRange[0] &&
                     dateRange[1] &&
-                    onChange(name, [
+                    onChange([
                       dateRange[0].toDate().toISOString(),
                       dateRange[1].toDate().toISOString(),
                     ]);
                 } else {
                   const dateObject = date as DateObject;
-                  onChange(name, dateObject.toDate().toISOString());
+                  onChange(dateObject.toDate().toISOString());
                 }
               }}
               {...allProps}

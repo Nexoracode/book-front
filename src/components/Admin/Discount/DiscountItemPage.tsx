@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUpdateDiscount from "../../../hooks/discount/useUpdateDiscount";
 import Paper from "../../Assets/Paper";
 import DiscountForm from "./DiscountForm";
@@ -10,10 +10,28 @@ type Props = {};
 export default function DiscountItemPage({}: Props) {
   const { id = null } = useParams();
   const { discount, isPending } = useGetDiscount({ discountId: Number(id) });
-
+  const navigate = useNavigate();
   const { mutateAsync } = useUpdateDiscount();
   const handleSubmit = (values: any) => {
-    mutateAsync(values);
+    const { code, expiresAt, maxUses, type, value_percentage, value_fixed } =
+      values;
+    if (discount)
+      mutateAsync(
+        {
+          value:
+            type === "fixed" ? Number(value_fixed) : Number(value_percentage),
+          code,
+          expiresAt,
+          maxUses,
+          type,
+          id: discount?.id,
+        },
+        {
+          onSuccess() {
+            navigate("/admin-dashboard/discounts");
+          },
+        },
+      );
   };
 
   console.log({ discount });
