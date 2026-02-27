@@ -13,7 +13,6 @@ export default function useInvice() {
   } = useMutation({
     mutationFn: ({ orderId }: AddInvoiceVariables) => {
       const callbackUrl = `${window.location.protocol}//${window.location.host}/verify?orderId=${orderId}`;
-      console.log({ callbackUrl });
       return axiosInstance
         .post("/payment/pay", {
           orderId,

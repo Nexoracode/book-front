@@ -8,8 +8,6 @@ type Props = {};
 export default function OrderSummerySection({}: Props) {
   const { cart, discount } = useCart();
 
-  console.log({ discount });
-
   const cartPrice = calcInvicePrice(cart);
   const discountAmount = useMemo(() => {
     if (!discount) return 0;

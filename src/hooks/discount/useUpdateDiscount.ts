@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../utils/axios";
 import { toast } from "react-toastify";
 import { queryClient } from "../../utils/query-client";
+import { Discount } from "../../types";
 
 export type UpdateDiscountVariables = {
   code: string;
@@ -13,12 +14,16 @@ export type UpdateDiscountVariables = {
 };
 export default function useUpdateDiscount() {
   const { mutateAsync, isSuccess, isPending, data } = useMutation({
-    mutationFn: ({ id, ...values }: UpdateDiscountVariables) => {
-      return axiosInstance.patch(`/discount/${id}`, { ...values });
+    mutationFn: async ({
+      id,
+      ...values
+    }: UpdateDiscountVariables): Promise<Discount> => {
+      return await axiosInstance.patch(`/discount/${id}`, { ...values });
     },
 
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["discount-list"] });
+      queryClient.invalidateQueries({ queryKey: ["discount-item", data.id] });
       toast.success("ویرایش کد تخفیف با موفقیت انجام شد.");
     },
   });

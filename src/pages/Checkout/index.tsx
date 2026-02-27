@@ -16,6 +16,7 @@ import SelectCity from "./SelectCity";
 import DiscountSection from "./DiscountSection";
 import OrderSummerySection from "./OrderSummerySection";
 import FinalPriceSection from "./FinalPriceSection";
+import { toast } from "react-toastify";
 
 export default function Checkout() {
   const form = useForm({});
@@ -55,7 +56,11 @@ export default function Checkout() {
 
   useEffect(() => {
     if (invoiceSuccess) {
-      window.location.href = invoiceData?.data.url;
+      if (invoiceData?.data.url) {
+        window.location.href = invoiceData?.data.url;
+      } else {
+        toast.error("خطا در انتقال به درگاه پرداخت");
+      }
     }
   }, [invoiceSuccess]);
 

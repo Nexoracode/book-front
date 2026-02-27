@@ -34,8 +34,6 @@ export default function DiscountItemPage({}: Props) {
       );
   };
 
-  console.log({ discount });
-
   if (isPending) return <LayoutLoading />;
   return (
     <div>
